@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -66,23 +68,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Padding(
         padding: EdgeInsets.all(24.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TextField(
-                  maxLines: 6,
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    labelText: '参数一',
-                    border: OutlineInputBorder(),
-                  ),
-                  onSubmitted: (String value) async {})
-            ],
-          ),
-        ),
+        child: ElevatedButton(onPressed: () async {
+          await Process.run('open ./python/assets/themes.json',[]);
+        }, child: Text("修改比赛主题")),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
+        onPressed: () async {
+          //调用cmd命令
+          await Process.run('python ./python/generate.py',[]);
+
+        },
         tooltip: '开始生成',
         child: const Icon(Icons.generating_tokens),
       ), // This trailing comma makes auto-formatting nicer for build methods.
